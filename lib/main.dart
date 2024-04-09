@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rainforest/splashscreen.dart';
 import 'package:rainforest/splashscreen2.dart';
 
 void main() => runApp(MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       // A widget which will be started on application startup
-      home: StackScreen(),
+      home: StackScreen2(),
     );
   }
 }
