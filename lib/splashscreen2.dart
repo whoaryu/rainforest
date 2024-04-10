@@ -12,20 +12,49 @@ class StackScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
+          MasonryGridView.builder(
+            itemCount: 16,
+            gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
+            itemBuilder: (context, index) => Opacity(
+              opacity: 0.4,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      'assets/pic${index + 1}.png',
+                    ),
+                  )),
+            ),
+            scrollDirection: Axis.vertical,
+            physics: AlwaysScrollableScrollPhysics(),
+          ),
           Positioned(
-            top: 24.0,
-            left: 24.0,
+            top: 20.0,
+            left: 20.0,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  'assets/welcome_to_login.svg',
-                  height: 50,
+                // Image.asset(
+                //   'assets/welcome_to_login.svg',
+                //   height: 50,
+                // ),
+                Text(
+                  'Welcome To',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontFamily: 'Poppins-Regular',
+                  ),
                 ),
-                const SizedBox(height: 8.0),
-                Image.asset(
-                  'assets/brand_name.png',
-                  height: 30,
+
+                Container(
+                  width: 600,
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    'assets/brand_name.png',
+                  ),
                 ),
               ],
             ),
@@ -50,13 +79,21 @@ class StackScreen extends StatelessWidget {
           Positioned(
             bottom: 90.0,
             left: 24.0,
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.navigate_next,
-                color: Colors.black,
-              ),
-              backgroundColor: Colors.purple,
+            child: Row(
+              children: [
+                FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(
+                    Icons.navigate_next,
+                    color: Colors.black,
+                  ),
+                  backgroundColor: Colors.purple,
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text('Skip', style: TextStyle(color: Colors.white)),
+              ],
             ),
           ),
         ],
@@ -79,21 +116,21 @@ class StackScreen extends StatelessWidget {
 //   );
 // }
 
-Widget _buildImageLogos() {
-  return Center(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image.asset('assets/welcome_to_login.svg', height: 30),
-        Image.asset(
-          'assets/brand_name.png',
-          height: 30,
-        ),
-      ],
-    ),
-  );
-}
+// Widget _buildImageLogos() {
+//   return Center(
+//     child: Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         Image.asset('assets/welcome_to_login.svg', height: 30),
+//         Image.asset(
+//           'assets/brand_name.png',
+//           height: 30,
+//         ),
+//       ],
+//     ),
+//   );
+// }
 
-Widget _getImageFromAssets(String imageName) {
-  return Image.asset('assets/$imageName.png');
-}
+// Widget _getImageFromAssets(String imageName) {
+//   return Image.asset('assets/$imageName.png');
+// }
