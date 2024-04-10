@@ -92,7 +92,8 @@ class StackScreen extends StatelessWidget {
                 SizedBox(
                   width: 15,
                 ),
-                Text('Skip', style: TextStyle(color: Colors.white)),
+                Text('Skip',
+                    style: TextStyle(color: Colors.white, fontSize: 20)),
               ],
             ),
           ),
