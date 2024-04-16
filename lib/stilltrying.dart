@@ -37,6 +37,7 @@ class _TrialState extends State<Trial> {
       body: Stack(
         children: [
           MasonryGridView.builder(
+            mainAxisSpacing: 5,
             itemCount: 16, // Placeholder for infinite scroll implementation
             gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
