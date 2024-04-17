@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:rainforest/getsize.dart'; //change the address of this
-//import assets from folder
+import 'package:rainforest/getsize.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -27,27 +26,24 @@ class _FirstScreenState extends State<FirstScreen> {
     super.dispose();
   }
 
-  // Function to continuously scroll to the end then to the beginning
   void _scrollToEndThenBeginning() {
     Future.delayed(const Duration(seconds: 1), () {
       scrollController
           .animateTo(
         scrollController.position.maxScrollExtent,
-        duration: Duration(seconds: 12), // Adjusted animation duration
+        duration: Duration(seconds: 48),
         curve: Curves.linear,
       )
           .then((_) {
-        // After reaching the end, scroll back to the beginning
-        scrollController
-            .animateTo(
-          0,
-          duration: Duration(seconds: 1), // Adjusted animation duration
-          curve: Curves.linear,
-        )
-            .then((_) {
-          // After reaching the beginning, call this function again for infinite scrolling
-          _scrollToEndThenBeginning();
-        });
+        // Check if scroll reaches the end
+        if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
+          // Navigate to the next page of PageView.builder
+          // onboardingController.pageController.nextPage(
+          //   duration: const Duration(milliseconds: 400),
+          //   curve: Curves.easeIn,
+          // );
+        }
       });
     });
   }
@@ -56,23 +52,34 @@ class _FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SizedBox(
-        width: W.w100(context), // Using the H and W classes for sizes
+      body: Container(
+        width: W.w100(context),
         height: H.h100(context),
+        foregroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.black,
+              Colors.transparent,
+              Colors.transparent,
+              Colors.black
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0, 0.25, 0.75, 1],
+          ),
+        ),
         child: SafeArea(
           child: Stack(
             children: [
               MasonryGridView.builder(
                 controller: scrollController,
-                itemCount: 16,
+                itemCount: 64,
                 gridDelegate:
                     const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (context, index) {
-                  // Determine if it's in the left column or the right column
                   bool isLeftColumn = index % 2 == 0;
-                  // Calculate the offset and alignment based on the column
                   double offset = isLeftColumn ? 0.0 : 20.0;
                   Alignment alignment = isLeftColumn
                       ? Alignment.centerLeft
@@ -82,13 +89,13 @@ class _FirstScreenState extends State<FirstScreen> {
                     child: Transform.translate(
                       offset: Offset(0.0, isLeftColumn ? 0.0 : 30.0),
                       child: Opacity(
-                        opacity: 0.6,
+                        opacity: 0.5,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
-                              'assets/pic${index + 1}.png',
+                              'assets/pic${index % 16 + 1}.png',
                             ),
                           ),
                         ),
@@ -97,16 +104,16 @@ class _FirstScreenState extends State<FirstScreen> {
                   );
                 },
                 scrollDirection: Axis.vertical,
-                physics:
-                    NeverScrollableScrollPhysics(), // Disable user scrolling
+                physics: NeverScrollableScrollPhysics(),
               ),
               Positioned(
-                top: H.h5(context), // Using H class for positioning
-                left: W.w5(context), // Using W class for positioning
+                top: H.h5(context),
+                left: W.w20(context),
                 child: FadeInLeft(
                   duration: const Duration(milliseconds: 800),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset('assets/welcome_to_login.svg'),
                       SvgPicture.asset('assets/onbaording_rainforest.svg')
@@ -115,16 +122,13 @@ class _FirstScreenState extends State<FirstScreen> {
                 ),
               ),
               Positioned(
-                bottom: H.h30(context), // Using H class for positioning
+                bottom: H.h30(context),
                 left: 0.0,
                 right: 0.0,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset('assets/onboarding_2_image_ask.svg'),
-                ),
+                child: SvgPicture.asset('assets/onboarding_image_ask.svg'),
               ),
               Positioned(
-                bottom: H.h25(context), // Using H class for positioning
+                bottom: H.h25(context),
                 left: 0.0,
                 right: 0.0,
                 child: Align(
@@ -133,8 +137,8 @@ class _FirstScreenState extends State<FirstScreen> {
                 ),
               ),
               Positioned(
-                bottom: H.h10(context), // Using H class for positioning
-                left: W.w5(context), // Using W class for positioning
+                bottom: H.h10(context),
+                left: W.w5(context),
                 child: BounceInUp(
                   duration: const Duration(milliseconds: 1600),
                   child: SizedBox(
@@ -144,10 +148,10 @@ class _FirstScreenState extends State<FirstScreen> {
                         InkWell(
                           onTap: () {
                             // onboardingController.pageController
-                            //     .nextPage(
-                            //         duration: const Duration(
-                            //             milliseconds: 400),
-                            //         curve: Curves.easeIn);
+                            //       .nextPage(
+                            //           duration: const Duration(
+                            //               milliseconds: 400),
+                            //           curve: Curves.easeIn);
                           },
                           child: Container(
                             height: H.h8(context),
