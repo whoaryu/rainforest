@@ -52,59 +52,63 @@ class _FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
+      body: SizedBox(
         width: W.w100(context),
         height: H.h100(context),
-        foregroundDecoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.black,
-              Colors.transparent,
-              Colors.transparent,
-              Colors.black
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 0.25, 0.75, 1],
-          ),
-        ),
         child: SafeArea(
           child: Stack(
             children: [
-              MasonryGridView.builder(
-                controller: scrollController,
-                itemCount: 64,
-                gridDelegate:
-                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+              Container(
+                width: W.w100(context),
+                height: H.h100(context),
+                foregroundDecoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black,
+                      Colors.transparent,
+                      Colors.transparent,
+                      Colors.black
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0, 0.25, 0.75, 1],
+                  ),
                 ),
-                itemBuilder: (context, index) {
-                  bool isLeftColumn = index % 2 == 0;
-                  double offset = isLeftColumn ? 0.0 : 20.0;
-                  Alignment alignment = isLeftColumn
-                      ? Alignment.centerLeft
-                      : Alignment.centerRight;
-                  return Align(
-                    alignment: alignment,
-                    child: Transform.translate(
-                      offset: Offset(0.0, isLeftColumn ? 0.0 : 30.0),
-                      child: Opacity(
-                        opacity: 0.5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/pic${index % 16 + 1}.png',
+                child: MasonryGridView.builder(
+                  controller: scrollController,
+                  itemCount: 64,
+                  gridDelegate:
+                      const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: (context, index) {
+                    bool isLeftColumn = index % 2 == 0;
+                    double offset = isLeftColumn ? 0.0 : 20.0;
+                    Alignment alignment = isLeftColumn
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight;
+                    return Align(
+                      alignment: alignment,
+                      child: Transform.translate(
+                        offset: Offset(0.0, isLeftColumn ? 0.0 : 30.0),
+                        child: Opacity(
+                          opacity: 0.5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                'assets/pic${index % 16 + 1}.png',
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
+                    );
+                  },
+                  scrollDirection: Axis.vertical,
+                  physics: NeverScrollableScrollPhysics(),
+                ),
               ),
               Positioned(
                 top: H.h5(context),
