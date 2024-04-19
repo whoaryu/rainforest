@@ -1,8 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:aiportrait/app/modules/onboarding/controllers/onboarding_controller.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:rainforest/getsize.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../../data/utils/get_size.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -13,6 +17,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   ScrollController scrollController = ScrollController();
+  OnboardingController onboardingController = Get.find();
 
   @override
   void initState() {
@@ -38,11 +43,10 @@ class _FirstScreenState extends State<FirstScreen> {
         // Check if scroll reaches the end
         if (scrollController.position.pixels ==
             scrollController.position.maxScrollExtent) {
-          // Navigate to the next page of PageView.builder
-          // onboardingController.pageController.nextPage(
-          //   duration: const Duration(milliseconds: 400),
-          //   curve: Curves.easeIn,
-          // );
+          onboardingController.pageController.nextPage(
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeIn,
+          );
         }
       });
     });
@@ -151,11 +155,9 @@ class _FirstScreenState extends State<FirstScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            // onboardingController.pageController
-                            //       .nextPage(
-                            //           duration: const Duration(
-                            //               milliseconds: 400),
-                            //           curve: Curves.easeIn);
+                            onboardingController.pageController.nextPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeIn);
                           },
                           child: Container(
                             height: H.h8(context),
