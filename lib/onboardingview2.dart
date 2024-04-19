@@ -1,5 +1,6 @@
 import 'package:aiportrait/app/data/utils/app_colors.dart';
 import 'package:aiportrait/app/data/utils/app_string.dart';
+import 'package:aiportrait/app/modules/onboarding/views/onboardingview1.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rainforest/onboardingview1.dart';
+
 import 'package:video_player/video_player.dart';
 
 import '../../../data/utils/custome_button.dart';
@@ -43,7 +44,7 @@ class _OnboardingViewState extends State<OnboardingView>
             controller: onboardingController.pageController,
             itemBuilder: (context, index) {
               if (index == 0) {
-                FirstScreen();
+               return FirstScreen();
               } else if (index == 1) {
                 return SizedBox(
                   height: H.h100(context),
